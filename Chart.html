@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html ng-app="App">
+<head>
+    <title>Continent Pie Chart</title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="scripts/Script.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+    <script src="scripts/dirPagination.js"></script>
+    <script src="scripts/canvasjs.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body ng-controller="CountryController" >   
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-6" id="countrypiechart" style="width: 60%; height: 320px;"  data-toggle="modal" data-target="#myModal"></div>           
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-1">
+
+            </div>
+            <div class="col-lg-8">
+
+                <table class="table table-sm table-condensed table-bordered table-hover">
+                    <thead class="thead-inverse">
+                        <tr>
+
+                            <th>Continents</th>
+                            <th>Roadways (SqKm)</th>
+                            <th>Countries</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in dataPointsTemp">
+
+                            <td>{{x.label}}</td>
+                            <td>{{x.y}}</td>
+                            <td>{{x.m}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                 <!--Modal content-->
+                <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Country Name/Capital</h4>
+                    </div>
+                    <div class="modal-body">  
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label>Search</label>
+                                <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                            </div>
+                        </form>
+                                              
+                        <div class="col-lg-8">
+
+                            <table class="table table-sm table-condensed table-bordered table-hover" data-toggle="table" data-url="Countries" data-cache="false" data-height="299">
+                                <thead class="thead-inverse">
+                                    <tr>
+
+                                        <th>Country</th>
+                                        <th>Capitals</th>                                        
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="x in ListOfContinentName|filter:search|itemsPerPage:10">
+                                        <td>{{x.CountryName}}</td>
+                                        
+                                        <td>{{x.Capital}}</td>                                        
+                                    <tr/>
+                                                                        
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                  
+                   <div class="modal-footer">
+                       <dir-pagination-controls max-size="5"
+                                                direction-links="true"
+                                                boundary-links="true">
+                       </dir-pagination-controls>
+                         <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->                       
+                    </div>                    
+                </div>
+
+            </div>
+        </div>
+        </div> <!--container class div-->
+</body>
+</html>
